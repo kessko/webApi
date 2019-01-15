@@ -12,10 +12,10 @@ namespace webApi.Controllers
     [ApiController]
     public class AbstractController : ControllerBase
     {
-        private IActivityFacotry _activityFacotry;
+        private IActivityFactory _activityFacotry;
         private IDataRowHolder _dataRowHolder;
 
-        public AbstractController(IActivityFacotry activityFacotry, IDataRowHolder dataRowHolder)
+        public AbstractController(IActivityFactory activityFacotry, IDataRowHolder dataRowHolder)
         {
             _activityFacotry = activityFacotry;
             _dataRowHolder = dataRowHolder;

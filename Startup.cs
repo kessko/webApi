@@ -31,7 +31,7 @@ namespace webApi
             services.Configure<ServiceOptions>(Configuration.GetSection("Movies"));
 
             services.AddSingleton<IDataRowHolder, InMemoryTable>();
-            services.AddSingleton<IActivityFacotry, ActivityFactory>();
+            services.AddSingleton<IActivityFactory, ActivityFactory>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

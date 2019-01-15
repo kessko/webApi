@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace webApi.Model
 {
-    public class ActivityFactory : IActivityFacotry
+    public class ActivityFactory : IActivityFactory
     {
         public ActivityItem Create(DataRow listSource)
         {
@@ -68,7 +68,7 @@ namespace webApi.Model
         }
     }
 
-    public interface IActivityFacotry
+    public interface IActivityFactory
     {
         ActivityItem Create(DataRow listSource);
     }
