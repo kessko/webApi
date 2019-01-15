@@ -57,10 +57,10 @@ namespace webApi.Controllers
 
 
         [HttpGet]
-        [Route("create")]
-        public ActivityItem CreateItem()
+        [Route("create/{index}")]
+        public ActivityItem CreateItem(int index)
         {
-            return _activityFacotry.Create(_dataRowHolder.GetRow());
+            return _activityFacotry.Create(_dataRowHolder.GetRow(index));
         }
     }
 }

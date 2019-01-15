@@ -14,7 +14,7 @@ namespace webApi.Model
         {
             if (listSource == null)
             {
-                listSource = new InMemoryTable().GetRow();
+                throw new ArgumentNullException(nameof(listSource));
             }
 
             var type = Enum.Parse(typeof(ActivityType), listSource["Type"]?.ToString());
@@ -24,6 +24,9 @@ namespace webApi.Model
             {
                 case ActivityType.TaskRenamed:
                     body = JsonConvert.DeserializeObject<TaskRenamedBody>(bodyValue);
+                    break;
+                case ActivityType.TaskConfigurationChanged:
+                    body = JsonConvert.DeserializeObject<TaskConfiguratonChangedBody>(bodyValue);
                     break;
                 default:
                     throw new ArgumentException();
@@ -38,7 +41,7 @@ namespace webApi.Model
 
     public interface IDataRowHolder
     {
-        DataRow GetRow();
+        DataRow GetRow(int index);
     }
     public class InMemoryTable : IDataRowHolder
     {
@@ -55,11 +58,13 @@ namespace webApi.Model
 
             //Add rows 
             _holder.Rows.Add(1, "TestUser", (int)ActivityType.TaskRenamed, "Some Location", "{\"OldName\":\"this is old name from db\"}");
+            _holder.Rows.Add(2, "Alex", (int)ActivityType.TaskConfigurationChanged, "Some Location2", "{\"NewFilters\":[\"AFR\",\"TF\"], \"OldFilters\":[\"TF\"], \"OldName\":\"this is other old name from db\"}");
+
         }
 
-        public DataRow GetRow()
+        public DataRow GetRow(int index)
         {
-            return _holder.Rows[0];
+            return _holder.Rows[index];
         }
     }
 
