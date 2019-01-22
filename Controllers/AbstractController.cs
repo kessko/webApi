@@ -62,5 +62,14 @@ namespace webApi.Controllers
         {
             return _activityFacotry.Create(_dataRowHolder.GetRow(index));
         }
+
+        [HttpPut]
+        public IActionResult Put([FromBody]ActivityItem activityItem)
+        {
+            _holder.Add(activityItem);
+
+
+            return Ok();
+        }
     }
 }

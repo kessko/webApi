@@ -1,5 +1,9 @@
-﻿namespace webApi.Model
+﻿using System;
+using Newtonsoft.Json;
+
+namespace webApi.Model
 {
+    [JsonConverter(typeof(ActivityItemJsonConverter))]
     public class ActivityItem
     {
         public ActivityType Type { get; set; }
