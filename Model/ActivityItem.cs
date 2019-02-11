@@ -1,10 +1,11 @@
 ﻿using System;
 using Newtonsoft.Json;
+using webApi.Descriptors;
 
 namespace webApi.Model
 {
     [JsonConverter(typeof(ActivityItemJsonConverter))]
-    public class ActivityItem
+    public class ActivityItem : IElasticDocument
     {
         public static Type BodyType
         {
@@ -18,6 +19,8 @@ namespace webApi.Model
         public long Id { get; set; }
         public string UserName { get; set; }
         public string Location { get; set; }
+        public string IndexName => "activity";
+        public string DocumentType => "admin";
 
         public static ActivityBody CreateEmptyBody(ActivityType activityType)
         {
