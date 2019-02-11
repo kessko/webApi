@@ -19,22 +19,10 @@ namespace webApi.Model
 
             var type = Enum.Parse(typeof(ActivityType), listSource["Type"]?.ToString());
             var bodyValue = listSource["Body"]?.ToString();
-            ActivityBody body;
-            switch (type)
-            {
-                case ActivityType.TaskRenamed:
-                    body = JsonConvert.DeserializeObject<TaskRenamedBody>(bodyValue);
-                    break;
-                case ActivityType.TaskConfigurationChanged:
-                    body = JsonConvert.DeserializeObject<TaskConfiguratonChangedBody>(bodyValue);
-                    break;
-                default:
-                    throw new ArgumentException();
-                    break;
-            }
 
+            object body = JsonConvert.DeserializeObject(bodyValue, ActivityItem.BodyType);
 
-            return new ActivityItem { Body = body };
+            return new ActivityItem { Body = body as ActivityBody };
 
         }
     }

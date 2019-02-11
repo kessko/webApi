@@ -71,5 +71,13 @@ namespace webApi.Controllers
 
             return Ok();
         }
+
+
+        [HttpPut]
+        [Route("generic")]
+        public IActionResult Put([FromBody]ActivityItemBase<TaskRenamedBody> activityItem)
+        {
+            return new JsonResult(activityItem);
+        }
     }
 }

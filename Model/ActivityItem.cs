@@ -6,11 +6,25 @@ namespace webApi.Model
     [JsonConverter(typeof(ActivityItemJsonConverter))]
     public class ActivityItem
     {
+        public static Type BodyType
+        {
+            get
+            {
+                return typeof(TaskRenamedBody);
+            }
+        }
         public ActivityType Type { get; set; }
         public ActivityBody Body { get; set; }
         public long Id { get; set; }
         public string UserName { get; set; }
         public string Location { get; set; }
+
+        public static ActivityBody CreateEmptyBody(ActivityType activityType)
+        {
+            return Activator.CreateInstance(BodyType) as ActivityBody;
+        }
+
+
     }
 
     public abstract class ActivityBody { }

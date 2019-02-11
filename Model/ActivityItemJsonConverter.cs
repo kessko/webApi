@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace webApi.Model
@@ -20,6 +17,8 @@ namespace webApi.Model
             {
                 throw new ArgumentException($"{typeValue} is not a part of {nameof(ActivityType)} enum.");
             }
+
+            // todo logic of choosing body should be encapsulated.
             ActivityBody body = null;
             switch (type)
             {
