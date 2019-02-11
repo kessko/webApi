@@ -7,6 +7,7 @@ using webApi.Model;
 namespace webApi.Descriptors
 {
     public interface IDescriptorFactory<TItem, TSearchRequest>
+        where TItem : new()
     {
         SearchDescriptor<TItem> Create(TSearchRequest searchRequest);
     }

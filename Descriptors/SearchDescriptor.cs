@@ -2,17 +2,18 @@
 
 namespace webApi.Descriptors
 {
-    public class SearchDescriptor<TItem>
+    public class SearchDescriptor<TItem> where TItem : new()
     {
         int _skip;
         int _top;
         private Func<TermDescriptor<TItem>, SearchDescriptor<TItem>> _queryFn;
         private string _index;
         private string _type;
+        protected TItem _current;
 
         public SearchDescriptor()
         {
-
+            _current = new TItem();
         }
 
         public SearchDescriptor<TItem> Index(string index)
@@ -39,17 +40,26 @@ namespace webApi.Descriptors
         public SearchDescriptor<TItem> Query(Func<TermDescriptor<TItem>, SearchDescriptor<TItem>> func)
         {
             _queryFn = func;
-            return this;
-        } 
+            return _queryFn(new TermDescriptor<TItem>(this));
+        }
     }
 
     public class TermDescriptor<TItem> : SearchDescriptor<TItem>
+        where TItem : new()
     {
         Func<TItem, object> _termFn;
+        object _filed;
+        private SearchDescriptor<TItem> _prev;
+
+        public TermDescriptor(SearchDescriptor<TItem> descriptor)
+        {
+            _prev = descriptor;
+        }
 
         public TermDescriptor<TItem> Term(Func<TItem, object> func, object value)
         {
             _termFn = func;
+            _filed = _termFn(_current);
             return this;
         }
     }
